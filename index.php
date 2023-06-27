@@ -42,6 +42,8 @@ try{
                         $userController->editUser($url[2]);
                     } else if($url[1] === "s") {
                         $userController->displayShop();
+                    } else if($url[1] === "sa") {
+                        $userController->autoCompletionProducts();
                     } else if($url[1] === "lo") {
                         $userController->logOut();
                     } else if($url[1] === "w") {

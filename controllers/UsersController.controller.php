@@ -208,6 +208,23 @@ class UsersController {
         header('Location: '.URL.'user/s');
     }
 
+    public function getUserByUsername($username) {
+        $users = $this->userManager->getUsers();
+        foreach ($users as $user) {
+            if ($user->getUsername() === $username) {
+                return $user; // Return the user object
+            }
+        }
+        return null; // Return null if user not found
+    }
+
+    public function autoCompletionProducts(){
+        $products = $this->productManager->getProducts();
+
+        header('Content-Type: application/json');
+        echo json_encode($products);
+    }   
+
     public function logOut(){
         session_start();
         session_destroy();

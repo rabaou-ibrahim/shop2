@@ -12,7 +12,7 @@
     <button class="header-btn"><a href="<?= URL ?>user/r">Inscription</a></button>
     <button class="header-btn"><a href="<?= URL ?>user/l">Connexion</a></button>
 </header>
-<button class="display-return"><a href="<?= URL ?>home">Retour</a></button>
+<button class="display-return"><a href="<?= URL ?>user/s">Retour</a></button>
     <h3>Aperçu du produit</h3>
     
     <div class="view-div">

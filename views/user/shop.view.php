@@ -2,6 +2,12 @@
     require_once "./models/Product/ProductManager.class.php";
     $productManager = new ProductManager;
     $productManager->loadProducts();
+
+    require_once "./controllers/UsersController.controller.php";
+    $userController = new UsersController;
+    if (!empty($_SESSION['username'])) {
+        $loadedUser = $userController->getUserByUsername($_SESSION['username']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +15,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost/boutique2/webfiles/Css/index3.css">
-    <title>Accueil</title>
+    <link rel="stylesheet" href="http://localhost/boutique2/webfiles/Css/shop.css">
+    <title>Boutique</title> 
 </head>
 <body>
     <header>
@@ -22,39 +28,38 @@
     </header>
     <div class="container">
 
-        <section>
-            <div class="items">
-                <h3 class="items-number-shirt">T-shirts <?= $productManager->loadOccurences("T-shirt"); ?> </h3>
-                <h3 class="items-number-jean">Jeans <?= $productManager->loadOccurences("Jean"); ?> </h3>
-                <h3 class="items-number-veste">Vestes <?= $productManager->loadOccurences("Veste"); ?> </h3>
-            </div>
-            <div class="bar">
-                <p>Data Set</p>
-                <input type="text" placeholder="Recherche...">
-            </div>
+    <section id="section">
+        <div class="bar" id="bar">
+            <p>Recherche :</p>
+            <input type="text" id="search-input" placeholder="Rechercher un produit...">
+            <input id="search-button" type="image" src="http://localhost/boutique2/webfiles/img/user/search.png" width="50px" height="50px">
+        </div>
+        <div class="autocompletion-msg" id="autocompletion-msg"></div>
             <?php 
-            $products = $productManager->getProducts();
-            for($i=0; $i < count($products); $i++) : ?>
-            <table class="table">
+                $products = $productManager->getProducts();
+                for ($i = 0; $i < count($products); $i++) : 
+            ?>
+            <table class="table" id="product-table">
                 <tr class="table-content">
-                    <div class="table-content-text">
-                    <td><img src = 'http://localhost/boutique2/webfiles/img/shop/<?= $products[$i]->getImage() ?>' width="80px"></td>
-                    <td><?= $products[$i]->getName() ?></td>
-                    <td><?= $products[$i]->getPrice() ?>€</td>
-                    </div>
-                    <div class="table-options">
-                        <td><a href="<?= URL ?>user/v/<?= $products[$i]->getId() ?>"><button class="view-btn">Détails</button></td></a>
-                    </div>
+                    <td>
+                        <div class="tooltip">
+                            <img src="http://localhost/boutique2/webfiles/img/shop/<?= $products[$i]->getImage() ?>" width="150px">
+                            <span class="tooltip-text">
+                                <strong class="product-name">Nom:</strong> <?= $products[$i]->getName() ?><br>
+                                <strong class="product-description">Description:</strong> <?= $products[$i]->getDescription() ?><br>
+                                <strong class="product-price">Prix:</strong> <?= $products[$i]->getPrice() ?>€
+                            </span>
+                        </div>
+                    </td>
+                    <td><a href="<?= URL ?>user/v/<?= $products[$i]->getId() ?>"><button class="view-btn">Voir</button></a></td>
+                    <td><a href="<?= URL ?>user/ac/<?= $products[$i]->getId() ?>"><button class="bookmark-btn">Ajouter</button></a></td>
+                    <td><a href="<?= URL ?>user/b/<?= $products[$i]->getId() ?>"><button class="buy-product-btn">Acheter</button></a></td>
                 </tr>
-                <?php endfor; ?>
             </table>
-            <!-- <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="" class="active">1</a>
-                <a href="">2</a>
-                <a href="#">&raquo;</a>
-            </div> -->
-        </section>
+        <?php endfor; ?>
+    </section>
+
+
     </div>
 
     <footer>
@@ -65,6 +70,7 @@
             <li>résaux</li>
         </ul>
     </footer>
-
+    <!-- Include your shop.js script -->
+    <script src="/boutique2/Js/user/shop.js"></script>
 </body>
 </html>

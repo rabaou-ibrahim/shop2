@@ -1,6 +1,6 @@
 <?php    
     if (!$_SESSION['username']){
-        header('location: warning.view.php');   
+        header('location: home.view.php');   
     }
     require_once "../boutique2/controllers/ProductsController.controller.php";
     $productController = new ProductsController;
