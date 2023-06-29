@@ -22,6 +22,7 @@ searchInput.addEventListener('input', function() {
 
             // Clear the existing tables
             container.innerHTML = '';
+            bar.classList.add('bar')
             container.appendChild(bar);
             container.appendChild(autoCompletionMsg)
 
@@ -61,9 +62,14 @@ searchInput.addEventListener('input', function() {
                             </div>
                         </td>
                         <td><a href="${URL}user/v/${product.id}"><button class="view-btn">Voir</button></a></td>
-                        <td><a href="${URL}user/ac/${product.id}"><button class="bookmark-btn">Ajouter</button></a></td>
-                        <td><a href="${URL}user/b/${product.id}"><button class="buy-product-btn">Acheter</button></a></td>
-                    `;
+                        <td>
+                          <form action="<?= URL ?>user/ac/" method="POST">
+                          <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                          <input type="hidden" name="productId" value="<?php echo $products[$i]->getId(); ?>">
+                          <input type="hidden" name="price" value="<?php echo $products[$i]->getPrice(); ?>">
+                          <button class="bookmark-btn" id="bookmark-btn">Ajouter</button>
+                          </form>
+                        </td>`;
 
                     // Append the new row to the table
                     table.appendChild(newRow);
@@ -99,9 +105,14 @@ searchInput.addEventListener('input', function() {
                             </div>
                         </td>
                         <td><a href="${URL}user/v/${product.id}"><button class="view-btn">Voir</button></a></td>
-                        <td><a href="${URL}user/ac/${product.id}"><button class="bookmark-btn">Ajouter</button></a></td>
-                        <td><a href="${URL}user/b/${product.id}"><button class="buy-product-btn">Acheter</button></a></td>
-                    `;
+                        <td>
+                          <form action="<?= URL ?>user/ac/" method="POST">
+                          <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                          <input type="hidden" name="productId" value="<?php echo $products[$i]->getId(); ?>">
+                          <input type="hidden" name="price" value="<?php echo $products[$i]->getPrice(); ?>">
+                          <button class="bookmark-btn" id="bookmark-btn">Ajouter</button>
+                          </form>
+                        </td>`;
 
                     // Append the new row to the table
                     table.appendChild(newRow);
@@ -137,9 +148,14 @@ searchInput.addEventListener('input', function() {
                             </div>
                         </td>
                         <td><a href="${URL}user/v/${product.id}"><button class="view-btn">Voir</button></a></td>
-                        <td><a href="${URL}user/ac/${product.id}"><button class="bookmark-btn">Ajouter</button></a></td>
-                        <td><a href="${URL}user/b/${product.id}"><button class="buy-product-btn">Acheter</button></a></td>
-                    `;
+                        <td>
+                          <form action="<?= URL ?>user/ac/" method="POST">
+                          <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                          <input type="hidden" name="productId" value="<?php echo $products[$i]->getId(); ?>">
+                          <input type="hidden" name="price" value="<?php echo $products[$i]->getPrice(); ?>">
+                          <button class="bookmark-btn" id="bookmark-btn">Ajouter</button>
+                          </form>
+                        </td>`;
 
                     // Append the new row to the table
                     table.appendChild(newRow);
@@ -173,10 +189,15 @@ searchInput.addEventListener('input', function() {
                                 </span>
                             </div>
                         </td>
-                        <td><a href="${URL}user/v/${product.id}"><button class="view-btn">Voir</button></a></td>
-                        <td><a href="${URL}user/ac/${product.id}"><button class="bookmark-btn">Ajouter</button></a></td>
-                        <td><a href="${URL}user/b/${product.id}"><button class="buy-product-btn">Acheter</button></a></td>
-                    `;
+                        <td><a href="http://localhost/boutique2/user/v/${product.id}"><button class="view-btn">Voir</button></a></td>
+                        <td>
+                          <form action="<?= URL ?>user/ac/" method="POST">
+                          <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                          <input type="hidden" name="productId" value="<?php echo $products[$i]->getId(); ?>">
+                          <input type="hidden" name="price" value="<?php echo $products[$i]->getPrice(); ?>">
+                          <button class="bookmark-btn" id="bookmark-btn">Ajouter</button>
+                          </form>
+                        </td>`;
 
                     // Append the new row to the table
                     table.appendChild(newRow);
@@ -194,3 +215,89 @@ searchInput.addEventListener('input', function() {
         });
 });
 
+// Define reusable functions
+
+const RoundBtnCart = document.getElementById("round-btn");
+const ItemCount = document.getElementById("item-count");
+const BookmarkBtns = document.getElementsByClassName("bookmark-btn");
+
+const checkUserCart = () => {
+  fetch('http://localhost/boutique2/user/gc')
+    .then(response => response.json())
+    .then(userCart => {
+      RoundBtnCart.style.backgroundColor = userCart ? 'green' : 'red';
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+};
+
+const checkUserCartItems = () => {
+  fetch('http://localhost/boutique2/user/gc')
+    .then(response => response.json())
+    .then(userCart => {
+      console.log(userCart); // Log the response for debugging
+      updateItemCount(userCart.products.length);
+      incrementRoundBtns(userCart.products);
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+};
+
+const incrementRoundBtns = (products) => {
+  Array.from(BookmarkBtns).forEach(btn => {
+    const productId = btn.dataset.productId;
+    const cartItem = products.find(item => item.productId === productId);
+    if (cartItem) {
+      const quantity = cartItem.quantity;
+      const roundBtn = btn.nextElementSibling.nextElementSibling;
+      roundBtn.textContent = quantity;
+      roundBtn.style.display = 'block';
+    }
+  });
+};
+
+
+const updateItemCount = (count) => {
+  ItemCount.textContent = count.toString();
+};
+
+const addProductToCart = (productId, price) => {
+  fetch('http://localhost/boutique2/user/ac', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      productId: productId,
+      price: price
+    })
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        const count = parseInt(ItemCount.textContent) + 1;
+        updateItemCount(count);
+        RoundBtnCart.style.backgroundColor = 'green';
+      } else {
+        console.log('Ajout non réalisé.');
+      }
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+};
+
+window.addEventListener('load', () => {
+  checkUserCart();
+  checkUserCartItems();
+});
+
+Array.from(BookmarkBtns).forEach(btn => {
+  btn.addEventListener('click', () => {
+    const productId = btn.dataset.productId;
+    const price = btn.dataset.price;
+    addProductToCart(productId, price);
+  });
+});

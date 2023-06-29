@@ -113,33 +113,24 @@ header button:hover .tooltip-text {
     visibility: visible;
 }
 
-.bar {
-    background: rgb(120, 174, 191);
-    width: 100%;
-    height: 25%;
+.display-return {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-self: center;
+    font-size: x-large;
+    text-decoration: none;
+    background-color: rgb(255, 112, 112);
+    color: white;
+    cursor: pointer;
+    width: auto;
 }
 
-.bar input[type="text"] {
-    padding: 10px;
-    align-self: right;
-    border: none;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    box-shadow: 0 2px 4px rgba(158, 155, 155, 0.1);
-    transition: background-color 0.3s ease;
+.display-return a{
+    color: white;
+    text-decoration: none;
 }
 
-.bar input[type="text"]:focus {
-    background-color: #e6e6e6;
-}
-
-.autocompletion-msg{
+h3 {
     text-align: center;
-    font-size: large;
-    padding: 2% 2%;
 }
 
 .table {
@@ -157,9 +148,8 @@ header button:hover .tooltip-text {
 
 .table .table-content .table-content-text {
     text-decoration: underline;
-}
+} 
 
-    
 .tooltip {
     position: relative;
     display: inline-block;
@@ -188,19 +178,23 @@ header button:hover .tooltip-text {
     opacity: 1;
 }
 
-input[type="text"], input[type="number"], textarea {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #ccc; 
-    position: absolute;
-    left: 50px;
-}
-
 .table .table-options {
     display: flex;
     flex-direction: column;
     width: 50%;
 }
+
+.table .table-content td .view-btn{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: x-large;
+    text-decoration: none;
+    background-color: rgb(88, 151, 165);
+    color: white;
+    cursor: pointer;
+} 
 
 .table .table-content td a{
     text-decoration: none;
@@ -208,7 +202,7 @@ input[type="text"], input[type="number"], textarea {
     cursor: pointer;
 } 
 
-.table .table-content td .bookmark-btn {
+.table .table-content td .edit-btn{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -220,19 +214,7 @@ input[type="text"], input[type="number"], textarea {
     cursor: pointer;
 }
 
-.table .table-content td .view-btn {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-    text-decoration: none;
-    background-color: rgb(88, 151, 165);
-    color: white;
-    cursor: pointer;
-}
-
-.table .table-content td .buy-product-btn{
+.table .table-content .buy-btn{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -243,10 +225,6 @@ input[type="text"], input[type="number"], textarea {
     color: white;
     cursor: pointer;
 }
-  
-header button:hover .tooltip-text {
-    visibility: visible;
-} 
 
 footer {
     background-color: rgb(217, 217, 217);

@@ -6,11 +6,15 @@ define("URL", str_replace("index.php","",(isset($_SERVER['HTTPS']) ? "https" : "
 require_once "controllers/ProductsController.controller.php";
 require_once "controllers/UsersController.controller.php";
 require_once "controllers/AdminsController.controller.php";
+require_once "controllers/CartsController.controller.php";
+require_once "controllers/CartItemsController.controller.php";
 
 
 $productController = new ProductsController;
 $userController = new UsersController;
 $adminController = new AdminsController;
+$cartController = new CartsController;
+$cartItemsController = new CartsItemsController;
 
 try{
     if(empty($_GET['page'])){
@@ -37,7 +41,13 @@ try{
                     } else if($url[1] === "lv"){
                         $userController->logInValidation();
                     } else if($url[1] === "p") {
-                        $userController->displayProfile();
+                        $userController->addCartValidation();
+                    } else if($url[1] === "gc") {
+                        $cartController->getUserCart();
+                    } else if($url[1] === "ac") {
+                        $cartItemsController->addProductToCartItems();
+                    } else if($url[1] === "c") {
+                        $userController->displayCart($url[2]);
                     } else if($url[1] === "e") {
                         $userController->editUser($url[2]);
                     } else if($url[1] === "s") {

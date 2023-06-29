@@ -72,5 +72,5 @@
 </ul>
 </footer>
 </body>
-<script src="/boutique2/Js/user/app.js"></script>
+<script src="/boutique2/Js/user/userRegForm.js"></script>
 </html>

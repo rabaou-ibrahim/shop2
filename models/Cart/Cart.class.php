@@ -1,6 +1,6 @@
 <?php
 
-class Cart {
+class Cart implements JsonSerializable {
     private $cart_id;
     private $username_id;
 
@@ -22,5 +22,11 @@ class Cart {
 
     public function setUsernameId($username_id){
         $this->username_id = $username_id;
+    }
+    public function jsonSerialize() {
+        return [
+            'cart_id' => $this->cart_id,
+            'username_id' => $this->username_id,
+        ];
     }
 }

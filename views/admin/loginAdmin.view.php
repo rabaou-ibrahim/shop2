@@ -46,5 +46,5 @@
 </ul>
 </footer>
 </body>
-<script src="/boutique2/Js/admin/app2.js"></script>
+<script src="/boutique2/Js/admin/adminLogForm.js"></script>
 </html>

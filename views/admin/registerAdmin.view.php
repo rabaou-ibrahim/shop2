@@ -63,5 +63,5 @@
 </ul>
 </footer>
 </body>
-<script src="/boutique2/Js/admin/app.js"></script>
+<script src="/boutique2/Js/admin/adminRegForm.js"></script>
 </html>

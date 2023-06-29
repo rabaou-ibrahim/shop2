@@ -3,10 +3,14 @@
 require_once "./models/User/UserManager.class.php";
 require_once "./models/Product/ProductManager.class.php";
 require_once "./models/Admin/AdminManager.class.php";
+require_once "./models/Cart/CartManager.class.php";
+require_once "./models/CartItems/CartItemsManager.class.php";
 class UsersController {
     private $userManager;
     private $productManager;
     private $adminManager;
+    private $cartManager;
+    private $cartItemsManager;
 
     public function __construct(){
         $this->userManager = new UserManager;
@@ -14,6 +18,12 @@ class UsersController {
 
         $this->adminManager = new AdminManager();
         $this->adminManager->loadAdmins();
+
+        $this->cartManager = new CartManager();
+        $this->cartManager->loadCarts();
+
+        $this->cartItemsManager = new CartItemsManager();
+        $this->cartItemsManager->loadCartItems();
 
         $this->productManager = new ProductManager;
         $this->productManager->loadProducts();
@@ -135,6 +145,8 @@ class UsersController {
                 'message' => "Connexion établie !"
             ];
             $_SESSION['username'] = $_POST['username'];
+            $loadedUser = $this->userManager->getUserByUsername($_SESSION['username']);
+            $_SESSION['id'] = $loadedUser->getId();
         } else {
             $responseLogData = [
                 'success' => false,
@@ -195,6 +207,10 @@ class UsersController {
         $this->userManager->editUserDb($_POST["identifier"], $_POST["firstname"], $_POST["lastname"], $_POST['username'], $_POST["email"], $_POST["password"]);
         header('Location: '.URL.'user/p');
     }
+    public function displayCart($id){
+        $userCart = $this->cartManager->getCartbyId($id);
+        require "views/user/cartUser.view.php";        
+    }
     public function displayShop(){
         require "views/user/shop.view.php";
     }
@@ -206,16 +222,6 @@ class UsersController {
         ];
         
         header('Location: '.URL.'user/s');
-    }
-
-    public function getUserByUsername($username) {
-        $users = $this->userManager->getUsers();
-        foreach ($users as $user) {
-            if ($user->getUsername() === $username) {
-                return $user; // Return the user object
-            }
-        }
-        return null; // Return null if user not found
     }
 
     public function autoCompletionProducts(){

@@ -41,6 +41,14 @@ class UserManager extends Model{
             }
         }
     }
+    public function getUserByUsername($username) {
+        foreach ($this->users as $user) {
+            if ($user->getUsername() === $username) {
+                return $user; // Return the user object
+            }
+        }
+        return null; // Return null if user not found
+    }
     public function registerDb($lastname, $firstname, $username, $email, $password){
         $query = "INSERT INTO utilisateurs (nom, prenom, pseudo, email, password) values (:nom, :prenom, :pseudo, :email, :password)";
         $passwordhash = password_hash($password, PASSWORD_DEFAULT);
@@ -57,6 +65,7 @@ class UserManager extends Model{
             $user = new User($this->getDb()->lastInsertId(), $lastname, $firstname, $username, $email, $passwordhash);
             $this->addUser($user);
         }
+        
     }
     public function editUserDb($id, $lastname, $firstname, $username, $email, $password){
         $query = "UPDATE utilisateurs SET nom = :lastname, prenom = :firstname, email = :email, password = :password WHERE id = :id";

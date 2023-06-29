@@ -238,35 +238,11 @@ section .bar a .add-btn:hover {
     width: 50%;
 }
 
-.table .table-content td .view-btn{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-    text-decoration: none;
-    background-color: rgb(88, 151, 165);
-    color: white;
-    cursor: pointer;
-} 
-
 .table .table-content td a{
     text-decoration: none;
     color: white;
     cursor: pointer;
 } 
-
-.table .table-content td .edit-btn{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-    text-decoration: none;
-    background-color: rgb(151, 166, 93);
-    color: white;
-    cursor: pointer;
-}
 
 .table .table-content .delete-btn{
     width: 100%;

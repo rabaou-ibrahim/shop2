@@ -1,13 +1,15 @@
 <?php
+    require_once "./models/User/UserManager.class.php";
+    $userManager = new UserManager;
+    $userManager->loadUsers();
+
     require_once "./models/Product/ProductManager.class.php";
     $productManager = new ProductManager;
     $productManager->loadProducts();
 
-    require_once "./controllers/UsersController.controller.php";
-    $userController = new UsersController;
-    if (!empty($_SESSION['username'])) {
-        $loadedUser = $userController->getUserByUsername($_SESSION['username']);
-    }
+    require_once "./models/Cart/CartManager.class.php";
+    $cartManager = new CartManager;
+    $cartManager->loadCarts();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +23,7 @@
 <body>
     <header>
         <button class="profile-btn"><a href="h"><img src = 'http://localhost/boutique2/webfiles/img/user/user.png' width="40px" height="40px"><span class="tooltip-text">Mon profil</span></a></button>
-        <button class="cart-btn"><a href="h"><img src = 'http://localhost/boutique2/webfiles/img/user/shopping-cart.png' width="40px" height="40px"><span class="tooltip-text">Mon panier</span></a></button>
+        <button class="cart-btn"><a href="http://localhost/boutique2/user/c/<?= $cartManager->getCartIdbyUserId($_SESSION['id']); ?>"><img src = 'http://localhost/boutique2/webfiles/img/user/shopping-cart.png' width="40px" height="40px"><span class="tooltip-text">Mon panier</span><span class="round-btn" id="round-btn"></span><span class="item-count" id="item-count">0</span></a></button>
         <button class="shop-btn"><a href="http://localhost/boutique2/user/s"><img src = 'http://localhost/boutique2/webfiles/img/user/shop.png' width="40px" height="40px"><span class="tooltip-text">Boutique</span></a></button>
         <button class="clock-btn"><a href="h"><img src = 'http://localhost/boutique2/webfiles/img/user/time.png' width="40px" height="40px"><span class="tooltip-text">Mon historique</span></a></button>
         <button class="logout-btn"><a href="http://localhost/boutique2/user/lo"><img src = 'http://localhost/boutique2/webfiles/img/user/power-on.png' width="40px" height="40px"><span class="tooltip-text">Me déconnecter</span></a></button>
@@ -30,7 +32,6 @@
 
     <section id="section">
         <div class="bar" id="bar">
-            <p>Recherche :</p>
             <input type="text" id="search-input" placeholder="Rechercher un produit...">
             <input id="search-button" type="image" src="http://localhost/boutique2/webfiles/img/user/search.png" width="50px" height="50px">
         </div>
@@ -51,9 +52,15 @@
                             </span>
                         </div>
                     </td>
-                    <td><a href="<?= URL ?>user/v/<?= $products[$i]->getId() ?>"><button class="view-btn">Voir</button></a></td>
-                    <td><a href="<?= URL ?>user/ac/<?= $products[$i]->getId() ?>"><button class="bookmark-btn">Ajouter</button></a></td>
-                    <td><a href="<?= URL ?>user/b/<?= $products[$i]->getId() ?>"><button class="buy-product-btn">Acheter</button></a></td>
+                    <td><a href="<?= URL ?>user/v/<?= $products[$i]->getId() ?>"><button class="view-btn">Voir</button></a></td> 
+                    <td>
+                        <form action="<?= URL ?>user/ac/" method="POST">
+                        <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                        <input type="hidden" name="productId" value="<?php echo $products[$i]->getId(); ?>">
+                        <input type="hidden" name="price" value="<?php echo $products[$i]->getPrice(); ?>">
+                        <button class="bookmark-btn" id="bookmark-btn">Ajouter</button>
+                        </form>
+                    </td>
                 </tr>
             </table>
         <?php endfor; ?>

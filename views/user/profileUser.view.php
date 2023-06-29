@@ -37,8 +37,7 @@
             <div class="text-articles">
                 Découvrez ici nos derniers articles !
             </div>
-            
-
+        
             <button class="btn-shop">Boutique</button>
         </div>
         <div class="purchases-block">
