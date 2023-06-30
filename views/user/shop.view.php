@@ -1,4 +1,7 @@
-<?php
+<?php  
+    if (!$_SESSION['username']){
+        header('location: ../home');   
+    }
     require_once "./models/User/UserManager.class.php";
     $userManager = new UserManager;
     $userManager->loadUsers();

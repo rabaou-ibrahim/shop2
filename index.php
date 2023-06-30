@@ -8,6 +8,7 @@ require_once "controllers/UsersController.controller.php";
 require_once "controllers/AdminsController.controller.php";
 require_once "controllers/CartsController.controller.php";
 require_once "controllers/CartItemsController.controller.php";
+// require_once "controllers/PurchasesController.controller.php";
 
 
 $productController = new ProductsController;
@@ -15,6 +16,7 @@ $userController = new UsersController;
 $adminController = new AdminsController;
 $cartController = new CartsController;
 $cartItemsController = new CartsItemsController;
+// $purchaseController = new PurchasesController;
 
 try{
     if(empty($_GET['page'])){
@@ -41,11 +43,13 @@ try{
                     } else if($url[1] === "lv"){
                         $userController->logInValidation();
                     } else if($url[1] === "p") {
-                        $userController->addCartValidation();
+                        $userController->displayProfile();
                     } else if($url[1] === "gc") {
                         $cartController->getUserCart();
                     } else if($url[1] === "ac") {
                         $cartItemsController->addProductToCartItems();
+                    } else if($url[1] === "ap") {
+                        $purchaseController->purchaseValidation();
                     } else if($url[1] === "c") {
                         $userController->displayCart($url[2]);
                     } else if($url[1] === "e") {

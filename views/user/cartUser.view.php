@@ -1,6 +1,6 @@
 <?php    
     if (!$_SESSION['username']){
-        header('location: home.view.php');   
+        header('location: ../home');   
     }
     require_once "./models/User/UserManager.class.php";
     $userManager = new UserManager;
@@ -13,6 +13,10 @@
     require_once "./models/Cart/CartManager.class.php";
     $cartManager = new CartManager;
     $cartManager->loadCarts();
+
+    require_once "./models/CartItems/CartItemsManager.class.php";
+    $cartItemsManager = new CartItemsManager;
+    $cartItemsManager->loadCartItems();
 
     require_once "./controllers/CartsController.controller.php";
     $cartController = new CartsController;
@@ -48,9 +52,13 @@
         <?php 
             foreach ($products as $product) : 
         ?>
+        <div class="horizontal-line"></div>
         <table class="table" id="product-table">
+            <h3>Nom : <?= $product['name'] ?></h3>
+            <h3>Total : <?= $product['price'] ?>€</h3>
             <tr class="table-content">
                 <td>
+                <p>Quantité : <?= $product['quantity']; ?> </p>
                     <div class="tooltip">
                         <img src="http://localhost/boutique2/webfiles/img/shop/<?= $product['image'] ?>" width="150px">
                         <span class="tooltip-text">
@@ -61,11 +69,16 @@
                     </div>
                 </td>
                 <td>
-                    <form action="<?= URL ?>user/ab/" method="POST">
+                    <form method="POST" onSubmit = "return confirm('Confirmer achat ?');">
                         <input type="hidden" name="quantity" class="quantity-input" value="<?= $product['quantity']; ?>">
-                        <input type="hidden" name="productId" value="<?= $product['description']; ?>">
+                        <input type="hidden" name="productId" value="<?= $product['productId']; ?>">
                         <input type="hidden" name="price" value="<?= $product['price']; ?>">
                         <button class="buy-btn" id="buy-btn">Acheter</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" onSubmit = "return confirm('Confirmer suppression ?');">
+                        <button class="buy-btn" type="submit">Supprimer</button>
                     </form>
                 </td>
             </tr>

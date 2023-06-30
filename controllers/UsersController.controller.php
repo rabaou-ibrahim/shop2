@@ -214,16 +214,6 @@ class UsersController {
     public function displayShop(){
         require "views/user/shop.view.php";
     }
-    public function addCartValidation(){
-        
-        $_SESSION['alert'] = [
-            "type" => "success",
-            "msg" => "Ajout de l'article réussi",
-        ];
-        
-        header('Location: '.URL.'user/s');
-    }
-
     public function autoCompletionProducts(){
         $products = $this->productManager->getProducts();
 

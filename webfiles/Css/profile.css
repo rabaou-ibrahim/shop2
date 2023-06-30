@@ -125,176 +125,130 @@ header {
 .container {
     display: flex;
     flex-direction: row;
-}
-
-section {
-    margin-top: -2.1%;
-    width: 100%;
-}
-
-section .items{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    color: white;
-    margin-bottom: -2.2%;
-}
-
-section .items .items-number-shirt{
-    padding: 4% 4%;
-    background-color: rgb(180, 233, 230);
-    width: 25%;
-    text-align: center;
-    font-size: xx-large;
-}
-
-section .items .items-number-jean{
-    padding: 4% 4%;
-    background-color: rgb(152,238,181);
-    width: 25%;
-    text-align: center;
-    font-size: xx-large;
-}
-
-section .items .items-number-veste{
-    padding: 4% 4%;
-    background-color: rgb(255, 112, 112);
-    width: 25%;
-    text-align: center;
-    font-size: xx-large;
-}
-
-section .bar {
-    background-color: rgb(120, 174, 191);
-    padding: 1% 1%;
-    display: flex;
-    flex-direction: row;
     justify-content: space-around;
 }
 
-section .bar p {
-    color: white;
-    font-size: larger;
+.container .shop-block{
+    width: 25%;
+    background-color: rgb(120, 174, 191);
+    padding: 3% 3%;
 }
+    .container .shop-block .image-preview{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .container .shop-block button{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        font-size: x-large;
+        text-decoration: none;
+        background-color: rgb(255, 112, 112);
+        color: white;
+        cursor: pointer;
+    }
 
-section .bar input {
-    height: 30px;
-    background-color: rgb(217, 217, 217);
-    border: none;
-    border-radius: 5%;
-    align-self: center;
-}
-
-/* section .bar .export-btn {
-    border: none;
-    width: 10%;
-    border-radius: 5px;
-    align-self: center;
-    background-color: rgb(74, 108, 124);
-    color: white;
-    cursor: pointer;
-}
-
-section .bar .export-btn:hover {
-    cursor: pointer;
-    background-color: rgba(74, 108, 124, 0.5);
-} */
-
-section .bar a .add-btn {
-    width: 150%;
-    border: none;
-    border-radius: 5px;
-    align-self: center;
-    background-color: rgb(96, 204, 154);
-    color: white;
-    cursor: pointer;
-}
-
-section .bar a .add-btn:hover {
-    cursor: pointer;
-    background-color: rgba(96, 204, 154, 0.5);
-}
-
-.table {
-    width: 100%;
-    padding: 2% 1%;
-}  
-
-.table .table-content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-} 
-
-.table .table-content .table-content-text {
-    text-decoration: underline;
-} 
-
-.table .table-options {
+    .round-btn {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: red;
+    }
+    
+    .item-count {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        background-color: red;
+        padding: 2px 4px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+      }
+      
+.container .purchases-block{
+    width: 25%;
+    background-color: rgb(120, 174, 191);
+    padding: 3% 3%;
     display: flex;
     flex-direction: column;
-    width: 50%;
 }
 
-.table .table-content td a{
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-} 
-
-.table .table-content .view-btn{
+.container .purchases-block button{
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-    text-decoration: none;
-    background-color: rgb(88, 151, 165);
-    color: white;
-    cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        font-size: x-large;
+        text-decoration: none;
+        background-color: rgb(255, 112, 112);
+        color: white;
+        cursor: pointer;
 }
 
+    .container h3{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 
-.table .table-content .delete-btn{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    font-size: x-large;
-    text-decoration: none;
-    background-color: rgb(255, 112, 112);
-    color: white;
-    cursor: pointer;
-}
+    .container2 {
+        margin-top: 5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 
-.pagination {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .pagination a {
-    padding: 1%;
-    margin-right: 1%;
-    cursor: pointer;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-  
-  .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 5px;
-  }
+    .container2 .cart-block{
+        width: 25%;
+        background-color: rgb(120, 174, 191);
+        padding: 3% 3%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+        .container2 .cart-block .text{
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .container2 .cart-block .text button{
+            width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                font-size: x-large;
+                text-decoration: none;
+                background-color: rgb(255, 112, 112);
+                color: white;
+                cursor: pointer;
+        }
+
+    .container2 .purchases-block{
+        width: 25%;
+        background-color: rgb(120, 174, 191);
+        padding: 3% 3%;
+        display: flex;
+        flex-direction: column;
+    }
+        .container2 .purchases-block button{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            font-size: x-large;
+            text-decoration: none;
+            background-color: rgb(255, 112, 112);
+            color: white;
+            cursor: pointer;
+        }
 
 footer {
     background-color: rgb(217, 217, 217);

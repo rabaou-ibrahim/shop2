@@ -46,10 +46,9 @@ class CartsItemsController{
     }
 
     public function loadUserCartItems() {
-        $loggedInUser = $_SESSION['user']; // Assuming you have a logged-in user stored in the session
+        $loggedInUser = $_SESSION['user'];
         $this->userCartItems = $this->cartItemsManager->getCartItemsByUserId($loggedInUser->getId());
         
-        // Update the round button count
         $roundBtnCount = count($this->userCartItems);
         echo "<script>updateItemCount($roundBtnCount);</script>";
     }

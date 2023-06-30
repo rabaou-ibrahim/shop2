@@ -69,7 +69,7 @@ class CartsController{
                         'name' => $product->getName(),
                         'description' => $product->getDescription(),
                         'image' => $product->getImage(),
-                        'price' => $product->getPrice(),
+                        'price' => $product->getPrice()*$cartItem->getQuantity(),
                         'quantity' => $cartItem->getQuantity()
                     ];
     
@@ -84,23 +84,5 @@ class CartsController{
         }
     
         return null;
-    }
-    
-    
-    
-      
-      
-    public function addtoCartValidation(){
-        // $file = $_FILES['image'];
-        // $directory = 'webfiles/img/shop/';
-        // $imageName = $this->addImage($file, $directory);
-        // $this->cartManager->addtoCartDb($imageName, $_POST['name'], $_POST['description'], $_POST['price']);
-        
-        $_SESSION['alert'] = [
-            "type" => "success",
-            "msg" => "Produit ajouté",
-        ];
-        
-        header('Location: '.URL.'user/p');
     }
 }

@@ -103,6 +103,18 @@ class CartItemsManager extends Model{
             $this->getCartItembyId($itemId)->setPrice($price);
         }
     }
+    public function deleteCartItemsDb($user_id){
+        $query = "DELETE FROM items_panier WHERE id = :idUser";
+        $stmt = $this->getDb()->prepare($query);
+        $stmt->bindValue(":idUser", $user_id, PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $stmt->closeCursor();
+
+        if ($result > 0){
+            $cart_item = $this->getCartItemsByUserId($user_id);
+            unset($cart_item);
+        }
+    }
 
     private function getItemByCartAndProduct($cartId, $productId){
         $query = "SELECT * FROM items_panier WHERE panier_id = :cartId AND produit_id = :productId";
